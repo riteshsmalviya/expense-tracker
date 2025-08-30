@@ -94,4 +94,10 @@ public class ExpenseController {
         double total = expenseService.getTotalExpensesByCategory(category);
         return ResponseEntity.ok(total);
     }
+
+    //This is just to show this message on frontend
+    @GetMapping("/")
+    public ResponseEntity<String> randomMessage() {
+        return ResponseEntity.ok("Welcome to the Expense Tracker API");
+    }
 } 
