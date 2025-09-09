@@ -2,6 +2,7 @@ package com.ritesh.expensetracker.controller;
 
 
 import com.ritesh.expensetracker.service.AuthService;
+import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import com.ritesh.expensetracker.model.Users;
@@ -17,12 +18,12 @@ public class AuthController {
     private AuthService authService;
 
     @PostMapping("/register")
-    public ResponseEntity<Users> registerUser(@RequestBody Users user){
+    public ResponseEntity<?> registerUser(@RequestBody Users user){
         try{
             Users registeredUser = authService.registerUser(user);
             return ResponseEntity.ok(registeredUser);
         } catch(IllegalArgumentException e){
-            return ResponseEntity.badRequest().build();
+            return ResponseEntity.badRequest().body("Email Already Exists Bro");
         }
     }
 
@@ -35,5 +36,16 @@ public class AuthController {
     @GetMapping("/")
     public ResponseEntity<String> randomMessage(){
         return ResponseEntity.ok("Welcome to our Auth System");
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<Void> deleteUser (@PathVariable Long id){
+        boolean deleted = authService.deleteUser(id);
+        if(deleted){
+            return ResponseEntity.ok().build();
+        }
+        else{
+            return ResponseEntity.notFound().build();
+        }
     }
 }
