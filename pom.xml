@@ -69,6 +69,22 @@
     		<artifactId>mysql-connector-j</artifactId>
     		<scope>runtime</scope>
 		</dependency>
+        <!-- Spring Boot Starter Web (if not already included) -->
+		<dependency>
+        	<groupId>org.springframework.boot</groupId>
+        	<artifactId>spring-boot-starter-web</artifactId>
+    	</dependency>
+		<!-- Jackson for JSON processing (usually included with spring-boot-starter-web) -->
+		<dependency>
+        	<groupId>com.fasterxml.jackson.core</groupId>
+        	<artifactId>jackson-databind</artifactId>
+    	</dependency>
+		<!-- Spring Boot Configuration Processor (optional, for @Value annotation) -->
+		<dependency>
+        	<groupId>org.springframework.boot</groupId>
+        	<artifactId>spring-boot-configuration-processor</artifactId>
+        	<optional>true</optional>
+    	</dependency>
 		<!-- Removed security test dependency -->
 		<!-- <dependency>
 			<groupId>org.springframework.security</groupId>

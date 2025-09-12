@@ -2,8 +2,8 @@ package com.ritesh.expensetracker.controller;
 
 
 import com.ritesh.expensetracker.service.AuthService;
-import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import com.ritesh.expensetracker.model.Users;
 import org.springframework.web.bind.annotation.*;
@@ -39,13 +39,16 @@ public class AuthController {
     }
 
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<Void> deleteUser (@PathVariable Long id){
+    public ResponseEntity<?> deleteUser (@PathVariable Long id){
         boolean deleted = authService.deleteUser(id);
         if(deleted){
             return ResponseEntity.ok().build();
         }
         else{
-            return ResponseEntity.notFound().build();
+            return ResponseEntity
+        .status(HttpStatus.NOT_FOUND)
+        .body("This user does not exist bro");
+
         }
     }
 }
