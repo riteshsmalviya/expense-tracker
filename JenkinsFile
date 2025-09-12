@@ -2,13 +2,19 @@ pipeline {
     agent any
 
     environment {
+        # MySQL credentials
         MYSQL_ROOT_PASSWORD = credentials('mysql-root-pass')
         MYSQL_USER          = credentials('mysql-user')
         MYSQL_PASSWORD      = credentials('mysql-pass')
+
+        # Spring Boot DB credentials
         SPRING_DATASOURCE_USERNAME = credentials('spring-db-user')
         SPRING_DATASOURCE_PASSWORD = credentials('spring-db-pass')
-        DEEPSEEK_API_KEY    = credentials('deepseek-key')
-        DEEPSEEK_API_URL    = credentials('deepseek-url')
+        SPRING_DATASOURCE_URL      = "jdbc:mysql://mysql-db:3306/expense_tracker"
+
+        # AI API
+        DEEPSEEK_API_KEY = credentials('deepseek-key')
+        DEEPSEEK_API_URL = credentials('deepseek-url')
     }
 
     stages {
@@ -21,7 +27,9 @@ pipeline {
         stage('Build & Deploy') {
             steps {
                 sh '''
-                echo "Starting Docker Compose build and deploy"
+                echo "🔹 Starting Docker Compose build & deploy"
+
+                # Docker Compose will automatically pick up env vars
                 docker compose up --build -d
                 '''
             }
