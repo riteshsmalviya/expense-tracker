@@ -6,10 +6,10 @@ services:
     image: mysql:8.0
     container_name: expense-tracker-mysql
     environment:
-      MYSQL_ROOT_PASSWORD: rootpassword
-      MYSQL_DATABASE: expense_tracker
-      MYSQL_USER: expense_user
-      MYSQL_PASSWORD: expense_password
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
     ports:
       - "3307:3306"
     volumes:
@@ -33,9 +33,9 @@ services:
         condition: service_healthy
     environment:
       # Database configuration
-      SPRING_DATASOURCE_URL: jdbc:mysql://mysql-db:3306/expense_tracker
-      SPRING_DATASOURCE_USERNAME: expense_user
-      SPRING_DATASOURCE_PASSWORD: expense_password
+      SPRING_DATASOURCE_URL: ${SPRING_DATASOURCE_URL}
+      SPRING_DATASOURCE_USERNAME: ${SPRING_DATASOURCE_USERNAME}
+      SPRING_DATASOURCE_PASSWORD: ${SPRING_DATASOURCE_PASSWORD}
       SPRING_DATASOURCE_DRIVER_CLASS_NAME: com.mysql.cj.jdbc.Driver
       
       # JPA/Hibernate configuration
@@ -47,9 +47,9 @@ services:
       SPRING_PROFILES_ACTIVE: docker
       SERVER_PORT: 8080
       
-      # AI API configuration (you'll need to set these)
-      DEEPSEEK_API_KEY: ${DEEPSEEK_API_KEY:-your-api-key-here}
-      DEEPSEEK_API_URL: ${DEEPSEEK_API_URL:-https://openrouter.ai/api/v1/chat/completions}
+      # AI API configuration
+      DEEPSEEK_API_KEY: ${DEEPSEEK_API_KEY}
+      DEEPSEEK_API_URL: ${DEEPSEEK_API_URL}
       DEEPSEEK_API_TIMEOUT_CONNECT: 120
       DEEPSEEK_API_TIMEOUT_READ: 120
     ports:
