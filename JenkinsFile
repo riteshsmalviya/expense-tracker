@@ -4,8 +4,6 @@ pipeline {
     environment {
         // MySQL credentials
         MYSQL_ROOT_PASSWORD = credentials('mysql-root-pass')
-        // MYSQL_USER          = credentials('mysql-user')
-        // MYSQL_PASSWORD      = credentials('mysql-pass')
 
         // Spring Boot DB credentials
         SPRING_DATASOURCE_USERNAME = credentials('spring-db-user')
