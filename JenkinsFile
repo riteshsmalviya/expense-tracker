@@ -5,7 +5,7 @@ pipeline {
         // MySQL credentials
         MYSQL_ROOT_PASSWORD = credentials('mysql-root-pass')
         MYSQL_USER          = credentials('mysql-user')
-        // MYSQL_PASSWORD      = credentials('mysql-pass')
+        MYSQL_PASSWORD      = credentials('mysql-pass')
 
         // Spring Boot DB credentials
         SPRING_DATASOURCE_USERNAME = credentials('spring-db-user')
@@ -37,7 +37,7 @@ pipeline {
 
         stage('Build & Deploy') {
             steps {
-                sh '''
+                bat '''
                 echo "🔹 Starting Docker Compose build & deploy"
                 docker compose up --build -d
                 '''
