@@ -34,11 +34,22 @@ pipeline {
             }
         }
 
+        stage('Clean Environment') {
+            steps {
+                bat '''
+                echo "🧹 Cleaning up existing containers and volumes"
+                docker compose down -v
+                echo "✅ Clean up completed"
+                '''
+            }
+        }
+
         stage('Build & Deploy') {
             steps {
                 bat '''
                 echo "🔹 Starting Docker Compose build & deploy"
                 docker compose up --build -d
+                echo "✅ Build and deploy completed"
                 '''
             }
         }
