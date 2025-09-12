@@ -1,7 +1,14 @@
 -- Database initialization script for Expense Tracker
 -- This script will run when the MySQL container starts for the first time
 
-USE expense_tracker;
+-- Create the database if it doesn't exist
+CREATE DATABASE IF NOT EXISTS expenseDB;
+USE expenseDB;
+
+-- Create a user with proper permissions for MySQL 8
+-- Note: Root user should already have access, but let's ensure permissions
+GRANT ALL PRIVILEGES ON expenseDB.* TO 'root'@'%';
+FLUSH PRIVILEGES;
 
 -- Create users table if it doesn't exist
 CREATE TABLE IF NOT EXISTS users (
