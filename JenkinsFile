@@ -18,6 +18,17 @@ pipeline {
     }
 
     stages {
+        stage('Set Build Name') {
+            steps {
+                script {
+                    // Use branch name + date-time as build display name
+                    def branch = env.BRANCH_NAME ?: "main"
+                    def now = new Date().format("yyyy-MM-dd_HH-mm-ss")
+                    currentBuild.displayName = "${branch}-${now}"
+                }
+            }
+        }
+
         stage('Checkout') {
             steps {
                 checkout scm
@@ -28,8 +39,6 @@ pipeline {
             steps {
                 sh '''
                 echo "🔹 Starting Docker Compose build & deploy"
-
-                # Docker Compose will automatically pick up env vars
                 docker compose up --build -d
                 '''
             }
